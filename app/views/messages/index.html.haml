@@ -1,0 +1,24 @@
+.wrapper
+  = render "layouts/sidebar"
+  .chat
+    .header
+      .left-header
+        .left-header__title
+          = @group.name
+        %ul.left-header__members
+          Member :
+          = @group.users.pluck(:name).join(',')
+      .right-header
+        = link_to "Edit", edit_group_path(@group), class: "right-header__btn"
+    #js-messages.messages
+      .message
+        = render @messages
+
+    .form
+      = form_for [@group,@message], id: "new_message", class: "js-form" do |f|
+        = f.text_field :message, placeholder: "type a message", id: "message_content", class: "form__message js-content"
+        .form__mask
+          = f.label :image, class: "form__mask__image" do
+            = f.file_field :image, class: "hidden"
+            %i.fa.fa-picture-o
+        = f.submit "send", class: "form__submit"

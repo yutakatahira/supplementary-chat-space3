@@ -1,0 +1,10 @@
+.message-content{"data-id": "#{message.id}"}
+  .upper-message
+    .upper-message__user-name
+      = message.user.name
+    .upper-message__date
+      = simple_time(message[:created_at])
+  .lower-message
+    %p.lower-message__content
+      = message.message
+    = image_tag message.image.url if message.image.url.present?
